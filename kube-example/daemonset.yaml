@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: smb-provider
+  name: smb-provider
+spec:
+  selector:
+    matchLabels:
+      app: smb-provider
+  template:
+    metadata:
+      labels:
+        app: smb-provider
+    spec:
+      containers:
+      - name: smbmounter
+        image: absortian/smb-mounter:1.0.0
+        securityContext:
+          privileged: true
+        envFrom:
+        - secretRef:
+            name: smb-config
+        volumeMounts:
+        # Fuse necessary for mounting
+        - name: devfuse
+          mountPath: /dev/fuse
+        # Mounting point
+        - name: samba-mount
+          mountPath: /mnt/smb0
+          mountPropagation: Bidirectional
+      volumes:
+      # Fuse necessary for mounting
+      - name: devfuse
+        hostPath:
+          path: /dev/fuse
+      # Mounting point
+      - name: samba-mount
+        hostPath:
+          path: /mnt/smb0

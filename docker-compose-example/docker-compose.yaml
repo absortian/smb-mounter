@@ -1,0 +1,11 @@
+version: '2'
+services:
+  smb-mounter:
+    image: 'absortian/smb-mounter:1.0.0'
+    privileged: true
+    environment:
+      SMB_SERVER: 'IPSERVER'
+      SMB_SHARE: 'sharedFolder'
+      SMB_USER: 'user'
+      SMB_PASSWORD: 'password'
+      SMB_MOUNT_PATH: '/mnt/smb0'
