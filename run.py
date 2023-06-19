@@ -20,8 +20,8 @@ except:
 
 # Logic
 # Create mount path if it doesn't exist
-if not os.path.exists(mountPath):
-    os.makedirs(mountPath)
+#if not os.path.exists(mountPath):
+#    os.makedirs(mountPath)
 # Create string for umount
 umountString = 'umount ' + mountPath
 # Create string for mount
